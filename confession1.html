@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Someone Special ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    overflow:hidden;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(-45deg,#ff7eb3,#ff758c,#a18cd1,#fbc2eb);
+    background-size:400% 400%;
+    animation:bg 12s ease infinite;
+}
+
+@keyframes bg{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.hearts{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+}
+
+.heart{
+    position:absolute;
+    color:white;
+    opacity:.7;
+    animation:float linear infinite;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(110vh);
+        opacity:0;
+    }
+    20%{
+        opacity:1;
+    }
+    to{
+        transform:translateY(-100px);
+        opacity:0;
+    }
+}
+
+.card{
+    width:90%;
+    max-width:700px;
+    text-align:center;
+    color:white;
+}
+
+.page{
+    display:none;
+}
+
+.active{
+    display:block;
+    animation:fade .8s ease;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.title{
+    font-size:2rem;
+    margin-bottom:20px;
+    text-shadow:0 0 20px rgba(255,255,255,.5);
+}
+
+.text{
+    line-height:1.8;
+    font-size:1.1rem;
+    margin-bottom:25px;
+}
+
+.btn{
+    border:none;
+    padding:15px 30px;
+    border-radius:50px;
+    cursor:pointer;
+    font-size:1rem;
+    background:white;
+    color:#ff4f92;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:scale(1.08);
+}
+
+.bouquet{
+    font-size:120px;
+    animation:bounce 2s infinite;
+}
+
+@keyframes bounce{
+    50%{
+        transform:translateY(-15px);
+    }
+}
+
+.envelope{
+    width:260px;
+    height:170px;
+    background:#ff5fa2;
+    margin:20px auto;
+    border-radius:12px;
+    position:relative;
+    cursor:pointer;
+    box-shadow:0 0 30px rgba(255,255,255,.5);
+    transition:.4s;
+}
+
+.envelope:hover{
+    transform:scale(1.05);
+}
+
+.envelope:before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    border-left:130px solid transparent;
+    border-right:130px solid transparent;
+    border-top:90px solid #ff8fc0;
+}
+
+.letter{
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(15px);
+    padding:30px;
+    border-radius:25px;
+    text-align:left;
+    box-shadow:0 0 30px rgba(0,0,0,.2);
+}
+
+.letter h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.letter p{
+    margin-bottom:15px;
+    line-height:1.8;
+}
+
+.reveal{
+    text-align:center;
+    font-size:2rem;
+    font-weight:bold;
+    margin:20px 0;
+}
+
+.cursor{
+    border-right:3px solid white;
+    animation:blink .8s infinite;
+}
+
+@keyframes blink{
+    50%{
+        border-color:transparent;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="hearts" id="hearts"></div>
+
+<div class="card">
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+    <div class="title">✨ Someone Made This For You ✨</div>
+
+    <div class="text">
+        Out of all the people in this world,<br>
+        someone chose to make something special just for you.
+        <br><br>
+        Tap below to continue.
+    </div>
+
+    <button class="btn" onclick="nextPage(2)">
+        Continue ❤️
+    </button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+
+    <div class="bouquet">💐</div>
+
+    <div class="text">
+        A bouquet for someone special.
+        <br><br>
+        Tap to receive it.
+    </div>
+
+    <button class="btn" onclick="nextPage(3)">
+        Receive Bouquet 🌹
+    </button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+
+    <div class="title">💌 A Letter Awaits</div>
+
+    <div class="envelope" onclick="nextPage(4)"></div>
+
+    <div class="text">
+        Tap the envelope to open the letter.
+    </div>
+
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="page4">
+
+<div class="letter">
+
+<h2>For You ❤️</h2>
+
+<p id="typewriter"></p>
+
+<div class="reveal">
+❤️ I Like You ❤️
+</div>
+
+<p>
+No matter what your answer is,
+thank you for taking the time to read this.
+</p>
+
+<p>
+You made ordinary days feel a little brighter.
+And honestly...
+I'm glad I met you.
+</p>
+
+<p style="text-align:right;">
+🌹 From Someone Who Likes You
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function nextPage(page){
+
+document.querySelectorAll(".page").forEach(p=>{
+p.classList.remove("active");
+});
+
+document.getElementById("page"+page).classList.add("active");
+
+if(page===4){
+startTyping();
+}
+
+}
+
+for(let i=0;i<35;i++){
+
+const h=document.createElement("div");
+
+h.className="heart";
+
+h.innerHTML="❤";
+
+h.style.left=Math.random()*100+"%";
+h.style.fontSize=(15+Math.random()*25)+"px";
+h.style.animationDuration=(5+Math.random()*8)+"s";
+h.style.animationDelay=Math.random()*5+"s";
+
+document.getElementById("hearts").appendChild(h);
+}
+
+let typed=false;
+
+function startTyping(){
+
+if(typed) return;
+typed=true;
+
+const text=`Hey,
+
+If you're reading this right now, thank you for opening this.
+
+I spent a long time deciding whether I should tell you how I feel.
+
+Not because I wasn't sure.
+
+But because I was afraid.
+
+Afraid of making things awkward.
+Afraid of ruining what we already have.
+
+But some feelings become too real to keep hidden forever.
+
+You probably don't realize it, but you've become one of my favorite parts of the day.
+
+Your smile.
+Your presence.
+The little things you do.
+
+Somehow they stay in my mind longer than they should.
+
+I don't expect anything from you.
+
+I simply wanted to be honest.
+
+And the truth is...`;
+
+let i=0;
+
+const target=document.getElementById("typewriter");
+
+target.classList.add("cursor");
+
+const interval=setInterval(()=>{
+
+target.innerHTML+=text.charAt(i);
+
+i++;
+
+if(i>=text.length){
+clearInterval(interval);
+target.classList.remove("cursor");
+}
+
+},35);
+
+}
+
+</script>
+
+</body>
+</html>
